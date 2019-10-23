@@ -2,7 +2,7 @@
 #mydb = mysql.connector.connect(
 	#host='classmysql.engr.oregonstate.edu',
 	#user='cs340_hibberts',
-	#passwd='3975',
+	#passwd='****',
 	#database='cs340_hibberts')
 
 #mycursor = mydb.cursor()
