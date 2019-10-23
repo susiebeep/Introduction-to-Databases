@@ -1,11 +1,3 @@
-#import mysql.connector
-#mydb = mysql.connector.connect(
-	#host='classmysql.engr.oregonstate.edu',
-	#user='cs340_hibberts',
-	#passwd='****',
-	#database='cs340_hibberts')
-
-#mycursor = mydb.cursor()
 
 from flask import Flask
 app = Flask(__name__)
