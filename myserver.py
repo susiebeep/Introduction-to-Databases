@@ -17,5 +17,14 @@ def track():
 def band_members():
     return render_template('band_members.html')
 
+@app.route('/shows')
+def shows():
+    return render_template('shows.html')
+
+@app.route('/set_list')
+def set_list():
+    return render_template('set_list.html')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
