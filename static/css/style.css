@@ -2,3 +2,8 @@ h1, h2, p, ul, li, label, form {
 	font-family: "Courier New", monospace;
 	text-align: center;
 }	
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
+}
