@@ -2,17 +2,20 @@ h1, h2, p, ul, li, label, form {
 	font-family: "Courier New", monospace;
 	text-align: center;
 }	
+
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Courier New", monospace;
-}
-img {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;	
-}	
-.container {
+	margin: auto;
+	padding: 0;
 	font-family: "Courier New", monospace;
 	text-align: center;
-}	
+}
+
+ul {
+	font-family: "Courier New", monospace;
+	text-align: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
