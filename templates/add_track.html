@@ -1,4 +1,22 @@
-<h1> Add a Track to Track Table </h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Track</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename= 'css/style.css')}}" />
+  </head>
+  <body>
+ <h1> Add a Track to Track Table </h1>
+<nav class = "myMenu">
+		<ul>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/">Home</a></li>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/set_list">Add a Set List</a></li>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/shows">Add a Show</a></li>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/album">Add an Album</a></li>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/track">Add a Track</a></li>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/band_members">Add a Band Member</a></li>
+		</ul>
+	</nav>
+<br>
 <form method="POST" action="">
     Track Name <input type="text" name="Album Name" />
     <br>
@@ -8,3 +26,5 @@
     <br>
     <input type="submit">
   </form>
+  </body>
+</html> 

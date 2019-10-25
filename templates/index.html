@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tool Database </title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title> Home </title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename= 'css/style.css')}}" />
   </head>
   <body>
 	<h1> Welcome to the database for the band Tool! </h1>
 	<br>
+	<nav class = "myMenu">
 		<ul>
+			<li><a href="http://flip3.engr.oregonstate.edu:3975/">Home</a></li>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/set_list">Add a Set List</a></li>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/shows">Add a Show</a></li>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/album">Add an Album</a></li>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/track">Add a Track</a></li>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/band_members">Add a Band Member</a></li>
 		</ul>
+	</nav>	
 	<br>
-	<img src= "/static/images/tool-band-eye-tattoo.jpg" class = "pic"/>
+	<img src= "/static/images/tool-band-eye-tattoo.jpg">
 	<br>
   </body>
 </html>
