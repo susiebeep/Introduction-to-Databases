@@ -27,23 +27,23 @@ def set_list():
     return render_template('set_list.html')
 
 @app.route('/add_album')
-def album():
+def add_album():
     return render_template('add_album.html')
 
 @app.route('/add_track')
-def track():
+def add_track():
     return render_template('add_track.html')
 
 @app.route('/add_band_members')
-def band_members():
+def add_band_members():
     return render_template('add_members.html')
 
 @app.route('/add_shows')
-def shows():
+def add_shows():
     return render_template('add_shows.html')
 
 @app.route('/add_set_list')
-def set_list():
+def add_set_list():
     return render_template('add_set_list.html')
 
 if __name__ == '__main__':
