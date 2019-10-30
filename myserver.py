@@ -46,5 +46,9 @@ def add_shows():
 def add_set_list():
     return render_template('add_set_list.html')
 
+@app.route('/track_contributors')
+def track_contributors():
+    return render_template('track_contributors.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
