@@ -1,8 +1,24 @@
-h1, h2, p, ul, li, label, form {
+h1, h2, ul, li, label, form {
 	font-family: "Courier New", monospace;
 	text-align: center;
 	list-style: none;
 }	
+.description p {
+	font-family: "Courier New", monospace;
+	text-align: center;	
+}
+
+.description ul{
+	font-family: "Courier New", monospace;
+	text-align: left;
+	list-style: none;
+}
+
+.description li {
+	font-family: "Courier New", monospace;
+	text-align: left;
+	list-style: none;	
+}
 
 body {
 	margin: auto;
