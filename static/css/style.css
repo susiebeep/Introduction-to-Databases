@@ -12,6 +12,7 @@ h1, h2, ul, li, label, form {
 	font-family: "Courier New", monospace;
 	text-align: left;
 	list-style: none;
+	margin-left: 200px
 }
 
 .description li {
