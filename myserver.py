@@ -1,4 +1,7 @@
 from flask import Flask, render_template
+from flask import request
+from db_connector.db_connector import connect_to_database, execute_query
+
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
 
@@ -26,9 +29,16 @@ def shows():
 def set_list():
     return render_template('set_list.html')
 
-@app.route('/add_album')
+@app.route('/add_album', methods = ['POST', 'GET'])
 def add_album():
-    return render_template('add_album.html')
+    Album_Name = request.form['Album_Name']
+    Release_Date = request.form['Release_Date']
+    query = 'INSERT INTO `album` (`album name`, `release date`) VALUES (:Album_Name, :Release_Date)'
+    data = (Album_Name, Release_Date)
+    db_connection = connect_to_database()
+    execute_query(db_connection, query, data)
+    return("Album added!");
+    #return render_template('add_album.html')
 
 @app.route('/add_track')
 def add_track():
