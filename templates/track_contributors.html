@@ -19,36 +19,22 @@
 	</nav>
 <br>	
 <table style="width:75%" table border="1" table align = "center">
-  <tr>
+  <thead>
     <th>Track ID</th>
     <th>Band Member ID</th>
     <th>Edit</th>
     <th>Delete</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>2</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
+  </thead>
+   <tbody>
+	{% for r in rows %}
+	<tr>
+		<td>{{r.0}}</td>
+		<td>{{r[1]}}</td>
+		<td><button type="button">Edit</button></td>
+		<td><button type="button">Delete</button></td>
+	</tr>
+		{% endfor %}
+</tbody>
 </table>
 <br>
 <br>

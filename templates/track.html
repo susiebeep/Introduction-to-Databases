@@ -19,62 +19,26 @@
 	</nav>
 <br>	
 <table style="width:75%" table border="1" table align = "center">
-  <tr>
+  <thead>
     <th>Track ID</th>
     <th>Track Name</th>
     <th>Track Length</th>
     <th>Album ID</th>
     <th>Edit</th>
     <th>Delete</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Vicarious</td>
-    <td>7.12</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Jambi</td>
-    <td>7.48</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>The Pot</td>
-    <td>6.37</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>Lipan Conjuring</td>
-    <td>1.18</td>
-    <td>1</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>No Quarter</td>
-    <td>11.20</td>
-    <td>NULL</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>You lied</td>
-    <td>9.28</td>
-    <td>NULL</td>
-    <td><button type="button">Edit</button></td>
-    <td><button type="button">Delete</button></td>
-  </tr>
+  </thead>
+  <tbody>
+	{% for r in rows %}
+	<tr>
+		<td>{{r.0}}</td>
+		<td>{{r[1]}}</td>
+		<td>{{r[2]}}</td>
+		<td>{{r[3]}}</td>
+		<td><button type="button">Edit</button></td>
+		<td><button type="button">Delete</button></td>
+	</tr>
+		{% endfor %}
+	</tbody>
 </table>
 <br>
 <br>
