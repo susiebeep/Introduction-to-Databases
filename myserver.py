@@ -60,14 +60,14 @@ def track_contributors():
 
 @app.route('/add_album', methods = ['POST', 'GET'])
 def add_album():
-    #Album_Name = request.form['Album_Name']
-    #Release_Date = request.form['Release_Date']
-    #query = 'INSERT INTO `album` (`album name`, `release date`) VALUES (:Album_Name, :Release_Date)'
-    #data = (Album_Name, Release_Date)
-    #db_connection = connect_to_database()
-    #execute_query(db_connection, query, data)
-    #return("Album added!");
-    return render_template('add_album.html')
+    db_connection = connect_to_database()
+    album_name = request.form['Album Name']
+    release_date = request.form['Release Date']
+    query = 'INSERT INTO `album` (`album name`, `release date`) VALUES (%s, %D)'
+    data = (album_name, release_date)
+    execute_query(db_connection, query, data)
+    return("Album added!");
+    #return render_template('add_album.html')
 
 @app.route('/add_track')
 def add_track():
