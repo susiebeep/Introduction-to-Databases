@@ -52,7 +52,7 @@ def set_list():
 @app.route('/track_contributors')
 def track_contributors():
     db_connection = connect_to_database()
-    query = 'SELECT * FROM `track contributor`';
+    query = 'SELECT * FROM `track band member`';
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('track_contributors.html', rows = result)
