@@ -83,23 +83,23 @@ def add_track_new():
     db_connection = connect_to_database()
     
     if request.method == 'GET':
-        query = 'SELECT `band member id` FROM `band members`'
+        query = 'SELECT `band member id` FROM `band members`';
         result = execute_query(db_connection, query).fetchall();
         print(result)
         return render_template('add_track.html', rows = result)   
     
-    #elif request.method == 'POST':
+    elif request.method == 'POST':
     
-        #track_name = request.form['Track_Name']
-        #track_length = request.form['Release_Date']
-        #album_id = request.form['Album_ID']
-        #band_member_id = request.form['Band_Member_ID']
-        #query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
+        track_name = request.form['Track_Name']
+        track_length = request.form['Release_Date']
+        album_id = request.form['Album_ID']
+        band_member_id = request.form['Band_Member_ID']
+        query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
         #will need to insert the band member id and track id into track contributors table
-        #data = (track_name, track_length, album_id)
-        #print(data)
-        #execute_query(db_connection, query, data)
-        #return render_template('add_track_new.html')   
+        data = (track_name, track_length, album_id, band_member_id)
+        print(data)
+        execute_query(db_connection, query, data)
+        return render_template('add_track_new.html')   
     
 
 @app.route('/add_band_members')
