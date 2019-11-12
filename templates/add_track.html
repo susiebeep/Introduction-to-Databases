@@ -18,16 +18,20 @@
 		</ul>
 	</nav>
 <br>
-<form method="POST" action="/">
+<form method="POST" action="/add_track_new">
     Track Name <input type="text" name="Track_Name" />
     <br>
     Track Length <input type="number" name="Track_Length" />
     <br>
     Album ID <input type="number" name="Album_ID" />
     <br>
-    Band Members ID <input type="number" name="Band_Member_ID" />
+    Band Members ID <select name="Band_Member_ID" >
+		{% for r in rows %}	
+		<option value = "{{ r[0] }}"> {{ r[1] }} </option>
+		{% endfor %}
+		</select>
     <br>
-    <input type="submit">
+	<input type="submit">
   </form>
  </body>
  <html>
