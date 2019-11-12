@@ -58,24 +58,55 @@ def track_contributors():
     return render_template('track_contributors.html', rows = result)
     
 
-@app.route('/add_album', methods = ['POST', 'GET'])
+@app.route('/add_album')
 def add_album():
-    db_connection = connect_to_database()
-    album_name = request.form['Album Name']
-    release_date = request.form['Release Date']
-    query = 'INSERT INTO `album` (`album name`, `release date`) VALUES (%s, %D)'
+    return render_template('add_album.html')
+
+@app.route('/add_album_new', methods = ['POST'])
+def add_album_new():
+    album_name = request.form['Album_Name']
+    release_date = request.form['Release_Date']
+    query = 'INSERT INTO `album` (`album name`, `release date`) VALUES (%s, %s)'
     data = (album_name, release_date)
+    print(data)
+    db_connection = connect_to_database()
     execute_query(db_connection, query, data)
-    return("Album added!");
-    #return render_template('add_album.html')
+    return render_template('add_album_new.html')
+
 
 @app.route('/add_track')
 def add_track():
     return render_template('add_track.html')
+    
+@app.route('/add_track_new', methods = ['POST', 'GET'])
+def add_track_new():
+    track_name = request.form['Track_Name']
+    track_length = request.form['Release_Date']
+    album_id = request.form['Album_ID']
+    band_member_id = request.form['Band_Member_ID']
+    query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
+    #will need to insert the band member id and track id into track contributors table
+    data = (track_name, track_length, album_id)
+    print(data)
+    db_connection = connect_to_database()
+    execute_query(db_connection, query, data)
+    return render_template('add_track_new.html')    
 
 @app.route('/add_band_members')
 def add_band_members():
     return render_template('add_members.html')
+    
+@app.route('/add_members_new', methods = ['POST'])
+def add_members_new():
+    member_name = request.form['Member_Name']
+    instrument = request.form['Instrument']
+    birthdate = request.form['Birthdate']
+    query = 'INSERT INTO `band members` (`name`, `instrument`,`birthdate`) VALUES (%s, %s, %s)'
+    data = (member_name, instrument, birthdate)
+    print(data)
+    db_connection = connect_to_database()
+    execute_query(db_connection, query, data)
+    return render_template('add_members_new.html')    
 
 @app.route('/add_shows')
 def add_shows():

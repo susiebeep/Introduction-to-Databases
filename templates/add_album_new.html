@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add a Band Member</title>
+    <title>Add an Album</title>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename= 'css/style.css')}}" />
   </head>
   <body>
- <h1>Add a Band Member </h1>
+ <h1>Add an Album </h1>
 <nav class = "myMenu">
 		<ul>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/">Home</a></li>
@@ -17,15 +17,15 @@
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/track_contributors">Track Contributors</a></li>
 		</ul>
 	</nav>
-<br>	
-<form method="POST" action="/add_members_new">
-    Member Name <input type="text" name="Member_Name" />
+<br>
+<form method="POST" action="/add_album_new">
+    Album Name <input type="text" name="Album_Name" />
     <br>
-    Instrument <input type="text" name="Instrument" />
-    <br>
-    Birthdate <input type="date" name="Birthdate" />
+    Release Date <input type="date" name="Release_Date" />
     <br>
     <input type="submit">
   </form>
- </body>
+<br>
+ <h3>Album added!</h3>
+  </body>
  <html>
