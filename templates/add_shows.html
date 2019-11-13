@@ -18,11 +18,14 @@
 		</ul>
 	</nav>
 <br>
-<form method="POST" action="">
+<form method="POST" action="add_shows_new">
     City <input type="text" name="City" />
     <br>
-    Line Up ID <input type="number" name="Set List ID" />
-    <br>
+    Line Up ID <select name="lineup_id">
+       {% for L in lineup %}
+         <option value="{{L[0]}}">{{L[0]}}</option>
+       {% endfor %}
+   </select><br>
     <input type="submit">
   </form>
  </body>

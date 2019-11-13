@@ -24,14 +24,14 @@
     Track Length <input type="number" name="Track_Length" />
     <br>
     Album ID <select name="Album_ID" >
-		{% for a in albums %}	
-			<option class = "dropdown" value = "{{a[0]}}">{{a[0]}}</option>
+		{% for A in albums %}	
+			<option class = "dropdown" value = "{{A[0]}}">{{A[0]}}</option>
 		{% endfor %}
-	</select>
+	</select>	
     <br>
     Band Members ID <select name="Band_Member_ID" >
-		{% for r in rows %}	
-			<option class = "dropdown" value = "{{r[0]}}">{{r[0]}}</option>
+		{% for m in members %}	
+			<option class = "dropdown" value = "{{m[0]}}">{{m[0]}}</option>
 		{% endfor %}
 	</select>
     <br>

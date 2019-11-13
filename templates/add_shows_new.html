@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add a Set List</title>
+    <title>Add a Show</title>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename= 'css/style.css')}}" />
   </head>
   <body>
- <h1>Add a Set List </h1>
+ <h1>Add a Show </h1>
 <nav class = "myMenu">
 		<ul>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/">Home</a></li>
@@ -17,20 +17,17 @@
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/track_contributors">Track Contributors</a></li>
 		</ul>
 	</nav>
-<br>	
-<form method="POST" action="/add_set_list_new">
-	Track ID<select name="track_id">
-       {% for t in track %}
-         <option value="{{t[0]}}">{{t[0]}}</option>
-       {% endfor %}
-	</select><br>
+<br>
+<form method="POST" action="add_shows_new">
+    City <input type="text" name="City" />
+    <br>
     Line Up ID <select name="lineup_id">
        {% for L in lineup %}
-         <option value="{{L[0]}}">{{L[0]}}</option>
+         <option value="{{L[0]}}">{{L{0]}}</option>
        {% endfor %}
-	</select><br>
-	<br>
+   </select><br>
     <input type="submit">
   </form>
+   <h3>Show added!</h3>
  </body>
  <html>

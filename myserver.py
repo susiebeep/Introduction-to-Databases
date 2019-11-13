@@ -76,24 +76,27 @@ def add_album_new():
 
 @app.route('/add_track')
 def add_track():
-        db_connection = connect_to_database()
-        query = 'SELECT `band member id` FROM `band members`';
-        print(query)
-        result = execute_query(db_connection, query).fetchall();
-        print(result)
-        return render_template('add_track.html', rows = result)   
+    db_connection = connect_to_database()
+    query1 = 'SELECT `band member id` FROM `band members`';
+    print(query1)
+    query2 = 'SELECT `album id` FROM `album`';
+    print(query2)
+    result_bm = execute_query(db_connection, query1).fetchall();
+    result_album = execute_query(db_connection, query2).fetchall();
+    return render_template('add_track.html', members = result_bm, albums = result_album )   
     
 
 @app.route('/add_track_new', methods = ['POST', 'GET'])
 def add_track_new():
     db_connection = connect_to_database()
-    
     track_name = request.form['Track_Name']
     track_length = request.form['Release_Date']
     album_id = request.form['Album_ID']
     band_member_id = request.form['Band_Member_ID']
     query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
-    #will need to insert the band member id and track id into track contributors table
+   
+   #will need to insert the band member id and track id into track contributors table
+   
     data = (track_name, track_length, album_id, band_member_id)
     print(data)
     execute_query(db_connection, query, data)
@@ -118,11 +121,33 @@ def add_members_new():
 
 @app.route('/add_shows')
 def add_shows():
-    return render_template('add_shows.html')
+    db_connection = connect_to_database()
+    query = 'SELECT `line up id` FROM `shows`';
+    print(query)
+    result = execute_query(db_connection, query).fetchall();
+    print(result)
+    return render_template('add_shows.html', lineup = result)   
+    
+    
+@app.route('/add_shows_new', methods = ['POST'])
+def add_shows_new():
+    city = request.form['City']
+    lineup_id = request.form['Lineup_id']
+    query = 'INSERT INTO `shows` (`line up id`, `city`) VALUES (%s, %s)'
+    data = (lineup_id, city)
+    print(data)
+    db_connection = connect_to_database()
+    execute_query(db_connection, query, data)
+    return render_template('add_album_new.html')    
 
 @app.route('/add_set_list')
 def add_set_list():
-    return render_template('add_set_list.html')
+    db_connection = connect_to_database()
+    query1 = 'SELECT `line up id` FROM `shows`';
+    result_lineup = execute_query(db_connection, query1).fetchall();
+    query2 = 'SELECT `track id` FROM `tracks`';
+    result_tracks = execute_query(db_connection, query2).fetchall();
+    return render_template('add_set_list.html', lineup = result_lineup, track = result_tracks)
 
 
 
