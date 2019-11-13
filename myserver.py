@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask import request
+from flask import request, redirect
 from db_connector import connect_to_database, execute_query
 
 app = Flask(__name__)
@@ -76,30 +76,28 @@ def add_album_new():
 
 @app.route('/add_track')
 def add_track():
-    return render_template('add_track.html')
-    
-@app.route('/add_track_new', methods = ['POST', 'GET'])
-def add_track_new():
-    db_connection = connect_to_database()
-    
-    if request.method == 'GET':
+        db_connection = connect_to_database()
         query = 'SELECT `band member id` FROM `band members`';
+        print(query)
         result = execute_query(db_connection, query).fetchall();
         print(result)
         return render_template('add_track.html', rows = result)   
     
-    elif request.method == 'POST':
+
+@app.route('/add_track_new', methods = ['POST', 'GET'])
+def add_track_new():
+    db_connection = connect_to_database()
     
-        track_name = request.form['Track_Name']
-        track_length = request.form['Release_Date']
-        album_id = request.form['Album_ID']
-        band_member_id = request.form['Band_Member_ID']
-        query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
-        #will need to insert the band member id and track id into track contributors table
-        data = (track_name, track_length, album_id, band_member_id)
-        print(data)
-        execute_query(db_connection, query, data)
-        return render_template('add_track_new.html')   
+    track_name = request.form['Track_Name']
+    track_length = request.form['Release_Date']
+    album_id = request.form['Album_ID']
+    band_member_id = request.form['Band_Member_ID']
+    query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
+    #will need to insert the band member id and track id into track contributors table
+    data = (track_name, track_length, album_id, band_member_id)
+    print(data)
+    execute_query(db_connection, query, data)
+    return render_template('add_track_new.html')   
     
 
 @app.route('/add_band_members')

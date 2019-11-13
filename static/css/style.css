@@ -1,4 +1,4 @@
-h1, h2, ul, li, label, form {
+h1, h2, ul, li, label, form, select, option {
 	font-family: "Courier New", monospace;
 	text-align: center;
 	list-style: none;
@@ -58,3 +58,9 @@ img {
 .myMenu li a:hover{
 	background-color: #5298d9;
 }	
+
+.dropdown {
+	option {
+		color:black;
+	}
+}
