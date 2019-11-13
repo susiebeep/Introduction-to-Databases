@@ -56,7 +56,6 @@ def track_contributors():
     result = execute_query(db_connection, query).fetchall();
     print(result)
     return render_template('track_contributors.html', rows = result)
-    
 
 @app.route('/add_album')
 def add_album():
@@ -107,7 +106,7 @@ def add_track_new():
 def add_band_members():
     return render_template('add_members.html')
     
-@app.route('/add_members_new', methods = ['POST'])
+@app.route('/add_members_new', methods = ['POST', 'GET'])
 def add_members_new():
     member_name = request.form['Member_Name']
     instrument = request.form['Instrument']
@@ -129,16 +128,16 @@ def add_shows():
     return render_template('add_shows.html', lineup = result)   
     
     
-@app.route('/add_shows_new', methods = ['POST'])
+@app.route('/add_shows_new', methods = ['POST', 'GET'])
 def add_shows_new():
+    db_connection = connect_to_database()
     city = request.form['City']
     lineup_id = request.form['Lineup_id']
     query = 'INSERT INTO `shows` (`line up id`, `city`) VALUES (%s, %s)'
     data = (lineup_id, city)
     print(data)
-    db_connection = connect_to_database()
     execute_query(db_connection, query, data)
-    return render_template('add_album_new.html')    
+    return render_template('add_shows_new.html')    
 
 @app.route('/add_set_list')
 def add_set_list():
@@ -149,7 +148,16 @@ def add_set_list():
     result_tracks = execute_query(db_connection, query2).fetchall();
     return render_template('add_set_list.html', lineup = result_lineup, track = result_tracks)
 
-
+@app.route('/add_set_list_new', methods = ['POST', 'GET'])
+def add_set_list_new():
+    db_connection = connect_to_database()
+    lineup_id = request.form['Lineup_id']
+    track_id = request.form['Track_id']
+    query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
+    data = (lineup_id, track_id)
+    print(query)
+    execute_query(db_connection, query, data)
+    return render_template('add_set_list_new.html')    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
