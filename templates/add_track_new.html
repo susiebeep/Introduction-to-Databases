@@ -19,9 +19,9 @@
 	</nav>
 <br>
 <form method="POST" action="/add_track_new">
-    Track Name <input type="text" name="Album Name" />
+    Track Name <input type="text" name="track_name" />
     <br>
-    Track Length <input type="number" name="Track Length" />
+    Track Length <input type="number" name="track_length" />
     <br>
     Album ID <select name="Album_ID" >
 		{% for A in albums %}	
@@ -37,5 +37,6 @@
 	<input type="submit">	
   </form>
  <h3>Track added!</h3>
+ <h3>Track Contributor Table updated!</h3>
  </body>
  <html>
