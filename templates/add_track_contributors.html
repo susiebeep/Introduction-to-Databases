@@ -5,7 +5,7 @@
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename= 'css/style.css')}}" />
   </head>
   <body>
- <h1>Add a Track </h1>
+ <h1>Add a Track Contributor </h1>
 <nav class = "myMenu">
 		<ul>
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/">Home</a></li>
@@ -18,19 +18,18 @@
 		</ul>
 	</nav>
 <br>
-<form method="POST" action="/add_track_new">
-    Track Name <input type="text" name="track_name" />
-    <br>
-    Track Length <input type="number" name="track_length" />
-    <br>
-    Album ID <select name="Album_ID" >
-		{% for A in albums %}	
-			<option class = "dropdown" value = "{{A[0]}}">{{A[0]}}</option>
+<form method="POST" action="/add_track_contributors_new">
+	Track ID<select name="track_id">
+       {% for t in tracks %}
+         <option value="{{t[0]}}">{{t[0]}}</option>
+       {% endfor %}
+	</select><br>
+     Band Members ID <select name="Band_Member_ID" >
+		{% for m in members %}	
+			<option class = "dropdown" value = "{{m[0]}}">{{m[0]}}</option>
 		{% endfor %}
-	</select>	
-    <br>
+	</select><br>
 	<input type="submit">	
   </form>
- <h3>Track added!</h3>
  </body>
  <html>

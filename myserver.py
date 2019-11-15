@@ -69,11 +69,9 @@ def add_album_new():
 @app.route('/add_track')
 def add_track():
     db_connection = connect_to_database()
-    query1 = 'SELECT `band member id` FROM `band members`';
-    query2 = 'SELECT `album id` FROM `album`';
-    result_bm = execute_query(db_connection, query1).fetchall();
-    result_album = execute_query(db_connection, query2).fetchall();
-    return render_template('add_track.html', members = result_bm, albums = result_album )   
+    query = 'SELECT `album id` FROM `album`';
+    result_album = execute_query(db_connection, query).fetchall();
+    return render_template('add_track.html', albums = result_album )   
     
 
 @app.route('/add_track_new', methods = ['POST', 'GET'])
@@ -82,17 +80,9 @@ def add_track_new():
     track_name = request.form['track_name']
     track_length = request.form['track_length']
     album_id = request.form['Album_ID']
-    band_member_id = request.form['Band_Member_ID']
     query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)';
     data = (track_name, track_length, album_id)
     execute_query(db_connection, query, data)
-    
-    #track_id = 'SELECT `track id` FROM `tracks` ORDER BY `track id` DESC LIMIT 1'
-    #print(track_id)
-    #query1 = 'INSERT INTO `track band member` (`band member id`) VALUES (%s)'    
-    #data1 = (track_id, band_member_id)
-    #print(data1)
-    #execute_query(db_connection, query1, data1)
     return render_template('add_track_new.html') 
 
 @app.route('/add_band_members')
@@ -142,6 +132,25 @@ def add_set_list_new():
     data = (lineup_id, track_id)
     execute_query(db_connection, query, data)
     return render_template('add_set_list_new.html')    
+
+@app.route('/add_track_contributors')
+def add_track_contributors():
+    db_connection = connect_to_database()
+    query1 = 'SELECT `band member id` FROM `band members`';
+    query2 = 'SELECT `track id` FROM `tracks`';
+    result_bm = execute_query(db_connection, query1).fetchall();
+    result_tracks = execute_query(db_connection, query2).fetchall();
+    return render_template('add_track_contributors.html', members = result_bm, tracks = result_tracks )   
+
+@app.route('/add_track_contributors_new', methods = ['POST', 'GET'])
+def add_track_contributors_new():
+    db_connection = connect_to_database()
+    track_id = request.form['track_id']
+    band_member_id = request.form['Band_Member_ID']
+    query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
+    data = (track_id, band_member_id)
+    execute_query(db_connection, query, data)
+    return render_template('add_track_contributors_new.html')    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
