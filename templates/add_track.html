@@ -21,7 +21,7 @@
 <form method="POST" action="/add_track_new">
     Track Name <input type="text" name="track_name" />
     <br>
-    Track Length <input type="number" name="track_length" />
+    Track Length <input type="number" step = "0.01" min = "0" name="track_length" />
     <br>
     Album ID <select name="Album_ID" >
 		{% for A in albums %}	
