@@ -90,7 +90,7 @@ def add_track_new():
     #track_id = 'SELECT `track id` FROM `tracks` ORDER BY `track id` DESC LIMIT 1'
     #print(track_id)
     #query1 = 'INSERT INTO `track band member` (`band member id`) VALUES (%s)'    
-    #data1 = (band_member_id)
+    #data1 = (track_id, band_member_id)
     #print(data1)
     #execute_query(db_connection, query1, data1)
     return render_template('add_track_new.html') 
@@ -121,11 +121,9 @@ def add_shows():
 @app.route('/add_shows_new', methods = ['POST', 'GET'])
 def add_shows_new():
     db_connection = connect_to_database()
-    lineup_id = request.form['lineup_id']
     city = request.form['city']
-    query = 'INSERT INTO `shows` (`line up id`, `city`) VALUES (%s, %s)'
-    data = (lineup_id, city)
-    print(data)
+    query = 'INSERT INTO `shows` (`city`) VALUES (%s)'
+    data = (city)
     execute_query(db_connection, query, data)
     return render_template('add_shows_new.html')    
 
