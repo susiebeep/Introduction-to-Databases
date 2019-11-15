@@ -83,7 +83,7 @@ def add_track_new():
     track_length = request.form['track_length']
     album_id = request.form['Album_ID']
     band_member_id = request.form['Band_Member_ID']
-    query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)'
+    query = 'INSERT INTO `tracks` (`track name`, `track length`, `album id`) VALUES (%s, %s, %s)';
     data = (track_name, track_length, album_id)
     execute_query(db_connection, query, data)
     
@@ -112,18 +112,15 @@ def add_members_new():
 
 @app.route('/add_shows')
 def add_shows():
-    db_connection = connect_to_database()
-    query = 'SELECT `line up id` FROM `shows`';
-    result = execute_query(db_connection, query).fetchall();
-    return render_template('add_shows.html', lineup = result)   
+    return render_template('add_shows.html')   
     
     
 @app.route('/add_shows_new', methods = ['POST', 'GET'])
 def add_shows_new():
     db_connection = connect_to_database()
     city = request.form['city']
-    query = 'INSERT INTO `shows` (`city`) VALUES (%s)'
-    data = (city)
+    query = 'INSERT INTO `shows` (`city`) VALUES (%s)';
+    data = (city,)
     execute_query(db_connection, query, data)
     return render_template('add_shows_new.html')    
 
