@@ -24,11 +24,9 @@
     <th>Track Name</th>
     <th>Track Length</th>
     <th>Album ID</th>
-	<th>Band Member Name</th>
+	<th>Contributing Band Members</th>
 	<th>Line Up ID</th>
 	<th>Show</th>
-    <th>Edit</th>
-    <th>Delete</th>
   </thead>
   <tbody>
 	{% for r in results %}
@@ -40,8 +38,6 @@
 		<td>{{r[4]}}</td>
 		<td>{{r[5]}}</td>
 		<td>{{r[6]}}</td>
-		<td><button type="button">Edit</button></td>
-		<td><button type="button">Delete</button></td>
 	</tr>
 		{% endfor %}
 	</tbody>
