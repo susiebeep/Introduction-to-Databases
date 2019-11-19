@@ -169,6 +169,17 @@ def search():
     result_search = execute_query(db_connection, query, data).fetchall();
     return render_template('results.html', results = result_search)    
     
+@app.route("/delete_album/<int:id>")
+def delete_album(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `album` WHERE `album id` = %s'
+    data = (id,)
+    print(data)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT * FROM `album`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('album.html', rows = result2)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
