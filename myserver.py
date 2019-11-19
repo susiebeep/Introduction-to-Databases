@@ -174,12 +174,40 @@ def delete_album(id):
     db_connection = connect_to_database()
     query1 = 'DELETE FROM `album` WHERE `album id` = %s'
     data = (id,)
-    print(data)
     result1 = execute_query(db_connection, query1, data)
     query2 = 'SELECT * FROM `album`';
     result2 = execute_query(db_connection, query2).fetchall();
     return render_template('album.html', rows = result2)
 
-
+@app.route("/delete_member/<int:id>")
+def delete_member(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `band members` WHERE `band member id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT * FROM `band members`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('members.html', rows = result2)
+    
+@app.route("/delete_show/<int:id>")
+def delete_show(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `shows` WHERE `line up id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT * FROM `shows`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('shows.html', rows = result2)    
+    
+@app.route("/delete_track/<int:id>")
+def delete_track(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `tracks` WHERE `track id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT * FROM `tracks`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('track.html', rows = result2)       
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
