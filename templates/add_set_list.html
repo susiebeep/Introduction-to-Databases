@@ -24,9 +24,19 @@
          <option value="{{L[0]}}">{{L[0]}}</option>
        {% endfor %}
 	</select><br>
+	Show City <select name="city">
+       {% for c in city %}
+         <option value="{{c[0]}}">{{c[0]}}</option>
+       {% endfor %}
+	</select><br>
 	Track ID<select name="track_id">
        {% for t in track %}
          <option value="{{t[0]}}">{{t[0]}}</option>
+       {% endfor %}
+	</select><br>
+	Track Name<select name="track_name">
+       {% for n in track_name %}
+         <option value="{{n[0]}}">{{n[0]}}</option>
        {% endfor %}
 	</select><br>
 	<br>

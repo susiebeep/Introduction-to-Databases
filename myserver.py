@@ -40,14 +40,14 @@ def shows():
 @app.route('/set_list')
 def set_list():
     db_connection = connect_to_database()
-    query = 'SELECT * FROM `set list`';
+    query = 'SELECT `set list`.`line up id`, `shows`.`city`, `set list`.`track id`, `tracks`.`track name` FROM `set list` JOIN `shows` ON `set list`.`line up id` = `shows`.`line up id` JOIN `tracks` ON `set list`.`track id` = `tracks`.`track id`';
     result = execute_query(db_connection, query).fetchall();
     return render_template('set_list.html', rows = result)
     
 @app.route('/track_contributors')
 def track_contributors():
     db_connection = connect_to_database()
-    query = 'SELECT * FROM `track band member`';
+    query = 'SELECT `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
     result = execute_query(db_connection, query).fetchall();
     return render_template('track_contributors.html', rows = result)
 
@@ -118,10 +118,14 @@ def add_shows_new():
 def add_set_list():
     db_connection = connect_to_database()
     query1 = 'SELECT `line up id` FROM `shows`';
+    query1a = 'SELECT `city` FROM `shows`';
     result_lineup = execute_query(db_connection, query1).fetchall();
+    result_city = execute_query(db_connection, query1a).fetchall();
     query2 = 'SELECT `track id` FROM `tracks`';
+    query2a = 'SELECT `track name` FROM `tracks`';
     result_tracks = execute_query(db_connection, query2).fetchall();
-    return render_template('add_set_list.html', lineup = result_lineup, track = result_tracks)
+    result_track_name = execute_query(db_connection, query2a).fetchall();
+    return render_template('add_set_list.html', lineup = result_lineup, city = result_city, track = result_tracks, track_name = result_track_name)
 
 @app.route('/add_set_list_new', methods = ['POST', 'GET'])
 def add_set_list_new():
@@ -137,10 +141,14 @@ def add_set_list_new():
 def add_track_contributors():
     db_connection = connect_to_database()
     query1 = 'SELECT `band member id` FROM `band members`';
+    query1a = 'SELECT `name` FROM `band members`';
     query2 = 'SELECT `track id` FROM `tracks`';
+    query2a = 'SELECT `track name` FROM `tracks`';
     result_bm = execute_query(db_connection, query1).fetchall();
+    result_bm_names = execute_query(db_connection, query1a).fetchall();
     result_tracks = execute_query(db_connection, query2).fetchall();
-    return render_template('add_track_contributors.html', members = result_bm, tracks = result_tracks )   
+    result_track_name = execute_query(db_connection, query2a).fetchall();
+    return render_template('add_track_contributors.html', members = result_bm, members_name = result_bm_names, tracks = result_tracks, track_name = result_track_name )   
 
 @app.route('/add_track_contributors_new', methods = ['POST', 'GET'])
 def add_track_contributors_new():
