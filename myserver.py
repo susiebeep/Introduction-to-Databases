@@ -192,7 +192,7 @@ def delete_member(id):
 @app.route("/delete_show/<int:id>")
 def delete_show(id):
     db_connection = connect_to_database()
-    query1 = 'DELETE FROM `shows` WHERE `line up id` = %s'
+    query1 = 'DELETE FROM `shows` WHERE `set list id` = %s'
     data = (id,)
     result1 = execute_query(db_connection, query1, data)
     query2 = 'SELECT * FROM `shows`';
@@ -208,6 +208,18 @@ def delete_track(id):
     query2 = 'SELECT * FROM `tracks`';
     result2 = execute_query(db_connection, query2).fetchall();
     return render_template('track.html', rows = result2)       
+    
+    
+@app.route("/delete_contributor/<int:id>")
+def delete_contributor(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `track band member` WHERE `track contributor id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('track_contributors.html', rows = result2)  
+    
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
