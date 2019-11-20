@@ -207,7 +207,36 @@ def delete_track(id):
     result1 = execute_query(db_connection, query1, data)
     query2 = 'SELECT * FROM `tracks`';
     result2 = execute_query(db_connection, query2).fetchall();
-    return render_template('track.html', rows = result2)       
+    return render_template('track.html', rows = result2)
+
+@webapp.route('/update_tracks/<int:id>', methods=['POST','GET'])
+def update_tracks(id):
+    db_connection = connect_to_database()
+    if request.method == 'GET':
+        track_query = 'SELECT * FROM `tracks` WHERE `track_id` = %s' % (id)
+        track_result = execute_query(db_connection, track_query).fetchone()
+
+        if track_result == None:
+            return "No such track found!"
+
+        return render_template('track_update.html')
+
+    elif request.method == 'POST':
+        print("Update Track!");
+        db_connection = connect_to_database()
+        track_name = request.form['track_name']
+        track_length = request.form['track_length']
+        album_id = request.form['Album_ID']
+        data = (track_name, track_length, album_id)
+
+        print(request.form);
+
+        query = "UPDATE `tracks` SET `track_name` = %s, `track_length` = %s, `album_id` = %s WHERE `track_id` = %s"
+        data = (track_name, track_length, album_id)
+        result = execute_query(db_connection, query, data)
+        print(str(result.rowcount) + " row(s) updated");
+
+        return redirect('/tracks')
     
     
 @app.route("/delete_contributor/<int:id>")
