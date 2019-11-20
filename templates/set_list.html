@@ -20,6 +20,7 @@
 <br>		
 <table style="width:75%" table border="1" table align = "center">
   <thead>
+	<th>Set List ID</th>
     <th>Line Up ID</th>
 	<th>Show City</th>
     <th>Track ID</th>
@@ -34,8 +35,9 @@
 		<td>{{r[1]}}</td>
 		<td>{{r[2]}}</td>
 		<td>{{r[3]}}</td>
+		<td>{{r[4]}}</td>
 		<td><button type="button">Edit</button></td>
-		<td><button type="button">Delete</button></td>
+		<td><input type="button" name = "Delete" value = "Delete" onclick = "window.location='/delete_set_list/{{r.0}}'"></td>
   </tr>
 	{% endfor %}
 </tbody>

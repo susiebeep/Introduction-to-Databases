@@ -5,6 +5,9 @@ from db_connector import connect_to_database, execute_query
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
 
+
+## SELECT FUNCTIONALITIES
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -40,16 +43,19 @@ def shows():
 @app.route('/set_list')
 def set_list():
     db_connection = connect_to_database()
-    query = 'SELECT `set list`.`line up id`, `shows`.`city`, `set list`.`track id`, `tracks`.`track name` FROM `set list` JOIN `shows` ON `set list`.`line up id` = `shows`.`line up id` JOIN `tracks` ON `set list`.`track id` = `tracks`.`track id`';
+    query = 'SELECT `set list`.`set list id`, `set list`.`line up id`, `shows`.`city`, `set list`.`track id`, `tracks`.`track name` FROM `set list` JOIN `shows` ON `set list`.`line up id` = `shows`.`line up id` JOIN `tracks` ON `set list`.`track id` = `tracks`.`track id`';
     result = execute_query(db_connection, query).fetchall();
     return render_template('set_list.html', rows = result)
     
 @app.route('/track_contributors')
 def track_contributors():
     db_connection = connect_to_database()
-    query = 'SELECT `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
+    query = 'SELECT `track band member`.`track band contributor id`, `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
     result = execute_query(db_connection, query).fetchall();
     return render_template('track_contributors.html', rows = result)
+
+
+## INSERT FUNCTIONALITIES
 
 @app.route('/add_album')
 def add_album():
@@ -64,7 +70,6 @@ def add_album_new():
     db_connection = connect_to_database()
     execute_query(db_connection, query, data)
     return render_template('add_album_new.html')
-
 
 @app.route('/add_track')
 def add_track():
@@ -85,7 +90,7 @@ def add_track_new():
     execute_query(db_connection, query, data)
     return render_template('add_track_new.html') 
     
-
+    
 @app.route('/add_band_members')
 def add_band_members():
     return render_template('add_members.html')
@@ -160,7 +165,9 @@ def add_track_contributors_new():
     data = (track_id, band_member_id)
     execute_query(db_connection, query, data)
     return render_template('add_track_contributors_new.html')    
-    
+   
+## SEARCH FUNCTION
+   
 @app.route("/search", methods = ['GET', 'POST'])
 def search():
     db_connection = connect_to_database()
@@ -169,7 +176,9 @@ def search():
     data = (track_id,)
     result_search = execute_query(db_connection, query, data).fetchall();
     return render_template('results.html', results = result_search)    
-    
+ 
+## DELETE FUNCTIONALITIES
+ 
 @app.route("/delete_album/<int:id>")
 def delete_album(id):
     db_connection = connect_to_database()
@@ -210,6 +219,28 @@ def delete_track(id):
     result2 = execute_query(db_connection, query2).fetchall();
     return render_template('track.html', rows = result2)
     
+@app.route("/delete_contributor/<int:id>")
+def delete_contributor(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `track band member` WHERE `track band contributor id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT `track band member`.`track band contributor id`, `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('track_contributors.html', rows = result2)      
+    
+@app.route("/delete_set_list/<int:id>")
+def delete_set_list(id):
+    db_connection = connect_to_database()
+    query1 = 'DELETE FROM `set list` WHERE `set list id` = %s'
+    data = (id,)
+    result1 = execute_query(db_connection, query1, data)
+    query2 = 'SELECT `set list`.`set list id`, `set list`.`line up id`, `shows`.`city`, `set list`.`track id`, `tracks`.`track name` FROM `set list` JOIN `shows` ON `set list`.`line up id` = `shows`.`line up id` JOIN `tracks` ON `set list`.`track id` = `tracks`.`track id`';
+    result2 = execute_query(db_connection, query2).fetchall();
+    return render_template('set_list.html', rows = result2)
+
+
+## UPDATE FUNCTIONALITIES
     
 @app.route('/track_update')
 def track_update():
@@ -244,17 +275,6 @@ def update_tracks(id):
         print(str(result.rowcount) + " row(s) updated");
 
         return redirect('/tracks')
-    
-    
-@app.route("/delete_contributor/<int:id>")
-def delete_contributor(id):
-    db_connection = connect_to_database()
-    query1 = 'DELETE FROM `track band member` WHERE `track contributor id` = %s'
-    data = (id,)
-    result1 = execute_query(db_connection, query1, data)
-    query2 = 'SELECT `track band member`.`track id`, `tracks`.`track name`, `track band member`.`band member id`, `band members`.`name` FROM `track band member` JOIN `tracks` ON `track band member`.`track id` = `tracks`.`track id` JOIN `band members` ON `track band member`.`band member id` = `band members`.`band member id`';
-    result2 = execute_query(db_connection, query2).fetchall();
-    return render_template('track_contributors.html', rows = result2)  
     
     
 if __name__ == '__main__':
