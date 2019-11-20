@@ -84,6 +84,7 @@ def add_track_new():
     data = (track_name, track_length, album_id)
     execute_query(db_connection, query, data)
     return render_template('add_track_new.html') 
+    
 
 @app.route('/add_band_members')
 def add_band_members():
@@ -208,12 +209,18 @@ def delete_track(id):
     query2 = 'SELECT * FROM `tracks`';
     result2 = execute_query(db_connection, query2).fetchall();
     return render_template('track.html', rows = result2)
+    
+    
+@app.route('/track_update')
+def track_update():
+    return render_template('track_update.html')    
+    
 
-@webapp.route('/update_tracks/<int:id>', methods=['POST','GET'])
+@app.route('/update_tracks/<int:id>', methods=['POST','GET'])
 def update_tracks(id):
     db_connection = connect_to_database()
     if request.method == 'GET':
-        track_query = 'SELECT * FROM `tracks` WHERE `track_id` = %s' % (id)
+        track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
         track_result = execute_query(db_connection, track_query).fetchone()
 
         if track_result == None:
@@ -231,7 +238,7 @@ def update_tracks(id):
 
         print(request.form);
 
-        query = "UPDATE `tracks` SET `track_name` = %s, `track_length` = %s, `album_id` = %s WHERE `track_id` = %s"
+        query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
         data = (track_name, track_length, album_id)
         result = execute_query(db_connection, query, data)
         print(str(result.rowcount) + " row(s) updated");
