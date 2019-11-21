@@ -359,12 +359,12 @@ def update_member(id):
 
         return redirect('/members')      
     
-    @app.route('/update_track/<int:id>')
+@app.route('/update_track/<int:id>')
 def update_track():
     db_connection = connect_to_database()
     query = 'SELECT `album id` FROM `album`';
     result_album = execute_query(db_connection, query).fetchall();
-    return render_template('add_track.html', albums = result_album )   
+    return render_template('update_track.html', albums = result_album )   
     
 
 @app.route('/update_track_new/<int:id>', methods = ['POST', 'GET'])
