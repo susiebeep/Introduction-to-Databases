@@ -359,6 +359,24 @@ def update_member(id):
 
         return redirect('/members')      
     
+    @app.route('/update_track/<int:id>')
+def update_track():
+    db_connection = connect_to_database()
+    query = 'SELECT `album id` FROM `album`';
+    result_album = execute_query(db_connection, query).fetchall();
+    return render_template('add_track.html', albums = result_album )   
+    
+
+@app.route('/update_track_new/<int:id>', methods = ['POST', 'GET'])
+def update_track_new():
+    db_connection = connect_to_database()
+    track_name = request.form['track_name']
+    track_length = request.form['track_length']
+    album_id = request.form['Album_ID']
+    query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
+    data = (track_name, track_length, album_id)
+    execute_query(db_connection, query, data)
+    return render_template('update_track_new.html') 
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
