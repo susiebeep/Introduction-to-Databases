@@ -19,9 +19,9 @@
 	</nav>
 <br>
 <form method="POST" action="/add_track_new">
-    Track Name <input type="text" name="track_name" />
+    Track Name <input type="text" name="track_name" required />
     <br>
-    Track Length <input type="number" step = "0.01" min = "0" name="track_length" />
+    Track Length <input type="number" step = "0.01" min = "0" name="track_length" required />
     <br>
     Album ID <select name="Album_ID" >
 		{% for A in albums %}	

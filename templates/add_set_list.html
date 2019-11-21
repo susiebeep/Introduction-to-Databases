@@ -19,7 +19,7 @@
 	</nav>
 <br>	
 <form method="POST" action="/add_set_list_new">
-    Line Up ID <select name="lineup_id">
+    Line Up ID <select name="lineup_id" required>
        {% for L in lineup %}
          <option value="{{L[0]}}">{{L[0]}}</option>
        {% endfor %}

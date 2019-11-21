@@ -19,11 +19,11 @@
 	</nav>
 <br>
 <form method="POST" action="/update_member/{{member.0}}">
-    Band Member Name <input type="text" name="member_name" value = "{{member[1]}}"/>
+    Band Member Name <input type="text" name="member_name" value = "{{member[1]}}" required />
     <br>
-    Instrument <input type="text" name="instrument" value = "{{member[2]}}" />
+    Instrument <input type="text" name="instrument" value = "{{member[2]}}" required />
 	<br>
-	Birthdate <input type="date" name="birthdate" value = "{{member[3]}}" />
+	Birthdate <input type="date" name="birthdate" value = "{{member[3]}}" required />
 	<br>
 	<input type="submit">
   </form>

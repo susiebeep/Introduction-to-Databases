@@ -19,9 +19,9 @@
 	</nav>
 <br>
 <form method="POST" action="/update_track/{{track.0}}">
-    Track Name <input type="text" name="track_name" value = "{{track[1]}}"/>
+    Track Name <input type="text" name="track_name" value = "{{track[1]}}" required />
     <br>
-    Track Length <input type="number" step = "0.01" min = "0" name="track_length" value = "{{track[2]}}" />
+    Track Length <input type="number" step = "0.01" min = "0" name="track_length" value = "{{track[2]}}" required />
     <br>
 	Album ID <input type="number" name="album_id" value = "{{track[3]}}" />
 	<br>

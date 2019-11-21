@@ -19,9 +19,9 @@
 	</nav>
 <br>	
 <form method="POST" action="/update_album/{{album.0}}">
-    Album Name <input type="text" name="album_name" value = "{{album[1]}}"/>
+    Album Name <input type="text" name="album_name" value = "{{album[1]}}" required />
     <br>
-	Release Date <input type="date" name="release_date" value = "{{album[2]}}"/>
+	Release Date <input type="date" name="release_date" value = "{{album[2]}}"required />
 	<br>
 	<input type="submit">
   </form>
