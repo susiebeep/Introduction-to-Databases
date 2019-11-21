@@ -240,16 +240,14 @@ def delete_set_list(id):
     return render_template('set_list.html', rows = result2)
 
 
-## UPDATE FUNCTIONALITIES
-    
-@app.route('/track_update')
-def track_update():
-    return render_template('track_update.html')    
-    
+## UPDATE FUNCTIONALITIES        
 
-@app.route('/update_tracks/<int:id>', methods=['POST','GET'])
+@app.route('/update_track/<int:id>', methods=['POST','GET'])
 def update_tracks(id):
     db_connection = connect_to_database()
+    album_query = 'SELECT `album id` FROM `album`';
+    result_album = execute_query(db_connection, album_query).fetchall();
+    
     if request.method == 'GET':
         track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
         track_result = execute_query(db_connection, track_query).fetchone()
@@ -257,7 +255,7 @@ def update_tracks(id):
         if track_result == None:
             return "No such track found!"
 
-        return render_template('track_update.html')
+        return render_template('track_update.html', albums = result_album)
 
     elif request.method == 'POST':
         print("Update Track!");
