@@ -251,16 +251,16 @@ def update_tracks(id):
     if request.method == 'GET':
         track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
         track_result = execute_query(db_connection, track_query).fetchone()
-
      
         return render_template('track_update.html', track = track_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
+        track_id = request.form['track_id']
         track_name = request.form['track_name']
         track_length = request.form['track_length']
         album_id = request.form['album_ID']
-        data = (track_name, track_length, album_id)
+        data = (track_name, track_length, album_id, track_id)
 
         query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
         result = execute_query(db_connection, query, data)
@@ -372,7 +372,7 @@ def update_track_new():
     db_connection = connect_to_database()
     track_name = request.form['track_name']
     track_length = request.form['track_length']
-    album_id = request.form['Album_ID']
+    album_id = request.form['album_ID']
     query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
     data = (track_name, track_length, album_id)
     execute_query(db_connection, query, data)
