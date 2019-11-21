@@ -259,13 +259,15 @@ def update_tracks(id):
         track_id = request.form['track_id']
         track_name = request.form['track_name']
         track_length = request.form['track_length']
-        album_id = request.form['album_ID']
+        album_id = request.form['album_id']
         data = (track_name, track_length, album_id, track_id)
+
+        print(data)
 
         query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
         result = execute_query(db_connection, query, data)
 
-        return redirect('/tracks')
+        return redirect('/track')
 
 
 @app.route('/update_set_list/<int:id>', methods=['POST','GET'])
@@ -275,8 +277,6 @@ def update_set_list(id):
     if request.method == 'GET':
         sl_query = 'SELECT * FROM `set list` WHERE `set list id` = %s' % (id)
         sl_result = execute_query(db_connection, sl_query).fetchone()
-        
-        print(sl_result)
         
         return render_template('set_list_update.html', setlist = sl_result)
 
@@ -299,14 +299,13 @@ def update_show(id):
         show_query = 'SELECT * FROM `shows` WHERE `line up id` = %s' % (id)
         shows_result = execute_query(db_connection, show_query).fetchone()
         
-        print(shows_result)
-        
         return render_template('shows_update.html', shows = shows_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
+        lineup_id = request.form['lineup_id']
         city_name = request.form['city_name']
-        data = (city_name,)
+        data = (city_name, lineup_id)
 
         query = "UPDATE `shows` SET `city` = %s WHERE `line up id` = %s"
         result = execute_query(db_connection, query, data)
@@ -349,34 +348,16 @@ def update_member(id):
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
+        member_id = request.form['member_id']
         member_name = request.form['member_name']
         instrument = request.form['instrument']
         birthdate = request.form['birthdate']
-        data = (member_name, instrument, birthdate)
+        data = (member_name, instrument, birthdate, member_id)
 
         query = "UPDATE `band members` SET `name` = %s, `instrument` = %s, `birthdate` = %s WHERE `band member id` = %s"
         result = execute_query(db_connection, query, data)
 
-        return redirect('/members')      
-    
-@app.route('/update_track/<int:id>')
-def update_track():
-    db_connection = connect_to_database()
-    query = 'SELECT `album id` FROM `album`';
-    result_album = execute_query(db_connection, query).fetchall();
-    return render_template('update_track.html', albums = result_album )   
-    
-
-@app.route('/update_track_new/<int:id>', methods = ['POST', 'GET'])
-def update_track_new():
-    db_connection = connect_to_database()
-    track_name = request.form['track_name']
-    track_length = request.form['track_length']
-    album_id = request.form['album_ID']
-    query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
-    data = (track_name, track_length, album_id)
-    execute_query(db_connection, query, data)
-    return render_template('update_track_new.html') 
+        return redirect('/band_members')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)

@@ -19,6 +19,7 @@
 	</nav>
 <br>	
 <form method="POST" action="/update_show/{{shows.0}}">
+	<input type="hidden" name="lineup_id" value = "{{shows.0}}">
     Show City <input type="text" name="city_name" value = "{{shows[1]}}" required />
 	<br>
 	<input type="submit">
