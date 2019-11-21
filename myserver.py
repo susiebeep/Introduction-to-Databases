@@ -245,35 +245,96 @@ def delete_set_list(id):
 @app.route('/update_track/<int:id>', methods=['POST','GET'])
 def update_tracks(id):
     db_connection = connect_to_database()
-    album_query = 'SELECT `album id` FROM `album`';
-    result_album = execute_query(db_connection, album_query).fetchall();
+    #album_query = 'SELECT `album id` FROM `album`';
+    #result_album = execute_query(db_connection, album_query).fetchall();
     
     if request.method == 'GET':
         track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
         track_result = execute_query(db_connection, track_query).fetchone()
 
-        if track_result == None:
-            return "No such track found!"
-
-        return render_template('track_update.html', albums = result_album, track = track_result)
+     
+        return render_template('track_update.html', track = track_result)
 
     elif request.method == 'POST':
-        print("Update Track!");
         db_connection = connect_to_database()
         track_name = request.form['track_name']
         track_length = request.form['track_length']
-        album_id = request.form['Album_ID']
+        album_id = request.form['album_ID']
         data = (track_name, track_length, album_id)
-
-        print(request.form);
 
         query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
-        data = (track_name, track_length, album_id)
         result = execute_query(db_connection, query, data)
-        print(str(result.rowcount) + " row(s) updated");
 
         return redirect('/tracks')
+
+
+@app.route('/update_set_list/<int:id>', methods=['POST','GET'])
+def update_set_list(id):
+    db_connection = connect_to_database()
+   
+    if request.method == 'GET':
+        sl_query = 'SELECT * FROM `set list` WHERE `set list id` = %s' % (id)
+        sl_result = execute_query(db_connection, sl_query).fetchone()
+        
+        print(sl_result)
+        
+        return render_template('set_list_update.html', setlist = sl_result)
+
+    elif request.method == 'POST':
+        db_connection = connect_to_database()
+        lineup_id = request.form['lineup_id']
+        track_id = request.form['track_id']
+        data = (lineup_id, track_id)
+
+        query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE `set list id` = %s"
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/set_list')
+
+@app.route('/update_show/<int:id>', methods=['POST','GET'])
+def update_show(id):
+    db_connection = connect_to_database()
+   
+    if request.method == 'GET':
+        show_query = 'SELECT * FROM `shows` WHERE `line up id` = %s' % (id)
+        shows_result = execute_query(db_connection, show_query).fetchone()
+        
+        print(shows_result)
+        
+        return render_template('shows_update.html', shows = shows_result)
+
+    elif request.method == 'POST':
+        db_connection = connect_to_database()
+        city_name = request.form['city_name']
+        data = (city_name,)
+
+        query = "UPDATE `shows` SET `city` = %s WHERE `line up id` = %s"
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/shows')    
+        
+        
+@app.route('/update_album/<int:id>', methods=['POST','GET'])
+def update_album(id):
+    db_connection = connect_to_database()
     
+    if request.method == 'GET':
+        album_query = 'SELECT * FROM `album` WHERE `album id` = %s' % (id)
+        album_result = execute_query(db_connection, album_query).fetchone()
+
+     
+        return render_template('album_update.html', album = album_result)
+
+    elif request.method == 'POST':
+        db_connection = connect_to_database()
+        album_name = request.form['album_name']
+        release_date = request.form['release_date']
+        data = (album_name, release_date)
+
+        query = "UPDATE `album` SET `album name` = %s, `release date` = %s WHERE `album id` = %s"
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/album')        
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
