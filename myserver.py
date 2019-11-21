@@ -336,5 +336,28 @@ def update_album(id):
 
         return redirect('/album')        
     
+@app.route('/update_member/<int:id>', methods=['POST','GET'])
+def update_member(id):
+    db_connection = connect_to_database()
+    
+    if request.method == 'GET':
+        member_query = 'SELECT * FROM `band members` WHERE `band member id` = %s' % (id)
+        member_result = execute_query(db_connection, member_query).fetchone()
+
+        return render_template('members_update.html', member = member_result)
+
+    elif request.method == 'POST':
+        db_connection = connect_to_database()
+        member_name = request.form['member_name']
+        instrument = request.form['instrument']
+        birthdate = request.form['birthdate']
+        data = (member_name, instrument, birthdate)
+
+        query = "UPDATE `band members` SET `name` = %s, `instrument` = %s, `birthdate` = %s WHERE `band member id` = %s"
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/members')      
+    
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3975)
