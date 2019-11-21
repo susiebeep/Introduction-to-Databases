@@ -18,11 +18,10 @@
 		</ul>
 	</nav>
 <br>
-<form method="POST" action="/update_tracks/">
-    <input type="hidden" name="track_id" value = "">
-    Track Name <input type="text" name="track_name" value = ""/>
+<form method="POST" action="/update_tracks/{{track.track_id}}">
+    Track Name <input type="text" name="track_name" value = "{{track.track_name}}"/>
     <br>
-    Track Length <input type="number" step = "0.01" min = "0" name="track_length" value = "" />
+    Track Length <input type="number" step = "0.01" min = "0" name="track_length" value = "{{track.track_length}}" />
     <br>
 	Album ID <select name="Album_ID" >
 		{% for A in albums %}	

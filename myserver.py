@@ -255,7 +255,7 @@ def update_tracks(id):
         if track_result == None:
             return "No such track found!"
 
-        return render_template('track_update.html', albums = result_album)
+        return render_template('track_update.html', albums = result_album, track = track_result)
 
     elif request.method == 'POST':
         print("Update Track!");
