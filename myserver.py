@@ -327,9 +327,10 @@ def update_album(id):
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
+        album_id = request.form['album_id']
         album_name = request.form['album_name']
         release_date = request.form['release_date']
-        data = (album_name, release_date)
+        data = (album_name, release_date, album_id)
 
         query = "UPDATE `album` SET `album name` = %s, `release date` = %s WHERE `album id` = %s"
         result = execute_query(db_connection, query, data)
