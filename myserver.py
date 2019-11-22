@@ -136,6 +136,8 @@ def add_set_list():
 @app.route('/add_set_list_new', methods = ['POST', 'GET'])
 def add_set_list_new():
     db_connection = connect_to_database()
+    city = request.form['city']
+    track_name = request.form['track_name']
     lineup_id = request.form['lineup_id']
     track_id = request.form['track_id']
     query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
