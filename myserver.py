@@ -134,8 +134,8 @@ def add_set_list_new():
     db_connection = connect_to_database()
     city = request.form['city']
     track_name = request.form['track_name']
-    query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
-    data = (lineup_id, track_id)
+    #query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
+    #data = (lineup_id, track_id)
     execute_query(db_connection, query, data)
     return render_template('add_set_list_new.html')    
 
@@ -153,10 +153,8 @@ def add_track_contributors_new():
     db_connection = connect_to_database()
     track_name = request.form['track_name']
     member_name = request.form['Band_Member_Name']
-    #track_id = request.form['track_id']
-    #band_member_id = request.form['Band_Member_ID']
-    query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
-    data = (track_id, band_member_id)
+    #query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
+    #data = (track_id, band_member_id)
     execute_query(db_connection, query, data)
     return render_template('add_track_contributors_new.html')    
    
