@@ -286,7 +286,7 @@ def update_set_list(id):
         track_id = request.form['track_id']
         data = (lineup_id, track_id)
 
-        query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE `set list id` = %s"
+        query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE `track id` = %s;"
         result = execute_query(db_connection, query, data)
 
         return redirect('/set_list')
