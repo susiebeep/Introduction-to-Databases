@@ -161,6 +161,8 @@ def add_track_contributors():
 @app.route('/add_track_contributors_new', methods = ['POST', 'GET'])
 def add_track_contributors_new():
     db_connection = connect_to_database()
+    track_name = request.form['track_name']
+    member_name = request.form['Band_Member_Name']
     track_id = request.form['track_id']
     band_member_id = request.form['Band_Member_ID']
     query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
