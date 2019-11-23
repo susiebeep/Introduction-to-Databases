@@ -19,13 +19,13 @@
 	</nav>
 <br>
 <form method="POST" action="/add_track_contributors_new">
-	Track Name<select name="track_name">
-       {% for n in track_name %}
+	Track ID <select name="track_id">
+       {% for n in track_id %}
          <option value="{{n[0]}}">{{n[0]}}</option>
        {% endfor %}
 	</select><br>
-	 Band Member Name <select name="Band_Member_Name" >
-		{% for a in members_name %}	
+	 Band Member ID <select name="Band_Member_ID" >
+		{% for a in members_id %}	
 			<option class = "dropdown" value = "{{a[0]}}">{{a[0]}}</option>
 		{% endfor %}
 	</select><br>

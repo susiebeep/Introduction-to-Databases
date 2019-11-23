@@ -19,14 +19,14 @@
 	</nav>
 <br>	
 <form method="POST" action="/add_set_list_new">
-	Show City <select name="city">
-       {% for c in city %}
-         <option value="{{c[0]}}">{{c[0]}}</option>
+	Line Up ID <select name="lineup_id">
+       {% for l in lineup_id %}
+         <option value="{{l[0]}}">{{l[0]}}</option>
        {% endfor %}
 	</select><br>
-	Track Name<select name="track_name">
-       {% for n in track_name %}
-         <option value="{{n[0]}}">{{n[0]}}</option>
+	Track Id <select name="track_id">
+       {% for t in track_id %}
+         <option value="{{t[0]}}">{{t[0]}}</option>
        {% endfor %}
 	</select><br>
 	<br>

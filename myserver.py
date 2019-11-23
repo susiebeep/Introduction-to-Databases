@@ -123,38 +123,38 @@ def add_shows_new():
 @app.route('/add_set_list')
 def add_set_list():
     db_connection = connect_to_database()
-    query1 = 'SELECT `city` FROM `shows`';
-    query2 = 'SELECT `track name` FROM `tracks`';
-    result_city = execute_query(db_connection, query1).fetchall();
-    result_track_name = execute_query(db_connection, query2).fetchall();
-    return render_template('add_set_list.html', city = result_city, track_name = result_track_name)
+    query1 = 'SELECT `line up id` FROM `shows`';
+    query2 = 'SELECT `track id` FROM `tracks`';
+    result_lineup = execute_query(db_connection, query1).fetchall();
+    result_track_id = execute_query(db_connection, query2).fetchall();
+    return render_template('add_set_list.html', lineup_id = result_lineup, track_id = result_track_id)
 
 @app.route('/add_set_list_new', methods = ['POST', 'GET'])
 def add_set_list_new():
     db_connection = connect_to_database()
-    city = request.form['city']
-    track_name = request.form['track_name']
-    #query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
-    #data = (lineup_id, track_id)
+    lineup_id = request.form['lineup_id']
+    track_id = request.form['track_id']
+    query = 'INSERT INTO `set list` (`line up id`, `track id`) VALUES (%s, %s)';
+    data = (lineup_id, track_id)
     execute_query(db_connection, query, data)
     return render_template('add_set_list_new.html')    
 
 @app.route('/add_track_contributors')
 def add_track_contributors():
     db_connection = connect_to_database()
-    query1 = 'SELECT `name` FROM `band members`';
-    query2 = 'SELECT `track name` FROM `tracks`';
-    result_bm_names = execute_query(db_connection, query1).fetchall();
-    result_track_name = execute_query(db_connection, query2).fetchall();
-    return render_template('add_track_contributors.html', members_name = result_bm_names, track_name = result_track_name )   
+    query1 = 'SELECT `band member id` FROM `band members`';
+    query2 = 'SELECT `track id` FROM `tracks`';
+    result_bm_id = execute_query(db_connection, query1).fetchall();
+    result_track_id = execute_query(db_connection, query2).fetchall();
+    return render_template('add_track_contributors.html', members_id = result_bm_id, track_id = result_track_id)   
 
 @app.route('/add_track_contributors_new', methods = ['POST', 'GET'])
 def add_track_contributors_new():
     db_connection = connect_to_database()
-    track_name = request.form['track_name']
-    member_name = request.form['Band_Member_Name']
-    #query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
-    #data = (track_id, band_member_id)
+    track_id = request.form['track_id']
+    member_id = request.form['Band_Member_ID']
+    query = 'INSERT INTO `track band member` (`track id`, `band member id`) VALUES (%s, %s)';
+    data = (track_id, member_id)
     execute_query(db_connection, query, data)
     return render_template('add_track_contributors_new.html')    
    
@@ -194,7 +194,7 @@ def delete_member(id):
 @app.route("/delete_show/<int:id>")
 def delete_show(id):
     db_connection = connect_to_database()
-    query1 = 'DELETE FROM `shows` WHERE `set list id` = %s'
+    query1 = 'DELETE FROM `shows` WHERE `line up id` = %s'
     data = (id,)
     result1 = execute_query(db_connection, query1, data)
     query2 = 'SELECT * FROM `shows`';
@@ -237,8 +237,6 @@ def delete_set_list(id):
 @app.route('/update_track/<int:id>', methods=['POST','GET'])
 def update_tracks(id):
     db_connection = connect_to_database()
-    #album_query = 'SELECT `album id` FROM `album`';
-    #result_album = execute_query(db_connection, album_query).fetchall();
     
     if request.method == 'GET':
         track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
@@ -274,11 +272,12 @@ def update_set_list(id):
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
+        setlist_id = request.form['setlist_id']
         lineup_id = request.form['lineup_id']
         track_id = request.form['track_id']
-        data = (lineup_id, track_id)
+        data = (lineup_id, track_id, setlist_id)
 
-        query = query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE 'set list id` = %s;"
+        query = query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE `set list id` = %s;"
         result = execute_query(db_connection, query, data)
 
         return redirect('/set_list')

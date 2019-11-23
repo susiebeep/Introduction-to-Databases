@@ -19,7 +19,8 @@
 	</nav>
 <br>
 <form method="POST" action="/update_set_list/{{setlist.0}}">
-    Line Up ID <input type="text" name="lineup_id" value = "{{setlist[1]}}" required />
+    <input type="hidden" name="setlist_id" value = "{{setlist.0}}">
+	Line Up ID <input type="text" name="lineup_id" value = "{{setlist[1]}}" required />
     <br>
     Track ID <input type="number" step = "0.01" min = "0" name="track_id" value = "{{setlist[2]}}" />
 	<br>
