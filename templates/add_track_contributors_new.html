@@ -18,19 +18,6 @@
 		</ul>
 	</nav>
 <br>
-<form method="POST" action="/add_track_contributors_new">
-	Track ID <select name="track_id">
-       {% for n in track_id %}
-         <option value="{{n[0]}}">{{n[0]}}</option>
-       {% endfor %}
-	</select><br>
-	 Band Member ID <select name="Band_Member_ID" >
-		{% for a in members_id %}	
-			<option class = "dropdown" value = "{{a[0]}}">{{a[0]}}</option>
-		{% endfor %}
-	</select><br>
-	<input type="submit">	
-  </form>
  <h3>Track Contributor added!</h3>
  </body>
  <html>

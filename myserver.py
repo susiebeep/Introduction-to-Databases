@@ -74,7 +74,7 @@ def add_album_new():
 @app.route('/add_track')
 def add_track():
     db_connection = connect_to_database()
-    query = 'SELECT `album id` FROM `album`';
+    query = 'SELECT `album id`, `album name` FROM `album`';
     result_album = execute_query(db_connection, query).fetchall();
     return render_template('add_track.html', albums = result_album )   
     
@@ -123,11 +123,11 @@ def add_shows_new():
 @app.route('/add_set_list')
 def add_set_list():
     db_connection = connect_to_database()
-    query1 = 'SELECT `line up id` FROM `shows`';
-    query2 = 'SELECT `track id` FROM `tracks`';
+    query1 = 'SELECT `line up id`, `city` FROM `shows`';
+    query2 = 'SELECT `track id`, `track name` FROM `tracks`';
     result_lineup = execute_query(db_connection, query1).fetchall();
-    result_track_id = execute_query(db_connection, query2).fetchall();
-    return render_template('add_set_list.html', lineup_id = result_lineup, track_id = result_track_id)
+    result_track = execute_query(db_connection, query2).fetchall();
+    return render_template('add_set_list.html', lineup_id = result_lineup, track_id = result_track)
 
 @app.route('/add_set_list_new', methods = ['POST', 'GET'])
 def add_set_list_new():
@@ -142,11 +142,11 @@ def add_set_list_new():
 @app.route('/add_track_contributors')
 def add_track_contributors():
     db_connection = connect_to_database()
-    query1 = 'SELECT `band member id` FROM `band members`';
-    query2 = 'SELECT `track id` FROM `tracks`';
-    result_bm_id = execute_query(db_connection, query1).fetchall();
-    result_track_id = execute_query(db_connection, query2).fetchall();
-    return render_template('add_track_contributors.html', members_id = result_bm_id, track_id = result_track_id)   
+    query1 = 'SELECT `band member id`, `name` FROM `band members`';
+    query2 = 'SELECT `track id`, `track name` FROM `tracks`';
+    result_bm = execute_query(db_connection, query1).fetchall();
+    result_track = execute_query(db_connection, query2).fetchall();
+    return render_template('add_track_contributors.html', members_name = result_bm, track_name = result_track)   
 
 @app.route('/add_track_contributors_new', methods = ['POST', 'GET'])
 def add_track_contributors_new():
