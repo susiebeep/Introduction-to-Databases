@@ -237,12 +237,16 @@ def delete_set_list(id):
 @app.route('/update_track/<int:id>', methods=['POST','GET'])
 def update_tracks(id):
     db_connection = connect_to_database()
+    display_row = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
+    row_result = execute_query(db_connection, display_row).fetchall()
     
     if request.method == 'GET':
         track_query = 'SELECT * FROM `tracks` WHERE `track id` = %s' % (id)
         track_result = execute_query(db_connection, track_query).fetchone()
+        album_list = 'SELECT `album id` FROM `album`';
+        album_result = execute_query(db_connection, album_list).fetchall();
      
-        return render_template('track_update.html', track = track_result)
+        return render_template('track_update.html', track = track_result, row = row_result, albums = album_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
@@ -251,8 +255,6 @@ def update_tracks(id):
         track_length = request.form['track_length']
         album_id = request.form['album_id']
         data = (track_name, track_length, album_id, track_id)
-
-        print(data)
 
         query = "UPDATE `tracks` SET `track name` = %s, `track length` = %s, `album id` = %s WHERE `track id` = %s"
         result = execute_query(db_connection, query, data)
@@ -263,12 +265,14 @@ def update_tracks(id):
 @app.route('/update_set_list/<int:id>', methods=['POST','GET'])
 def update_set_list(id):
     db_connection = connect_to_database()
+    display_row = 'SELECT `set list`.`set list id`, `set list`.`line up id`, `shows`.`city`, `set list`.`track id`, `tracks`.`track name` FROM `set list` JOIN `shows` ON `set list`.`line up id` = `shows`.`line up id` JOIN `tracks` ON `set list`.`track id` = `tracks`.`track id` WHERE `set list id` = %s' % (id)
+    row_result = execute_query(db_connection, display_row).fetchall()
    
     if request.method == 'GET':
         sl_query = 'SELECT * FROM `set list` WHERE `set list id` = %s' % (id)
         sl_result = execute_query(db_connection, sl_query).fetchone()
         
-        return render_template('set_list_update.html', setlist = sl_result)
+        return render_template('set_list_update.html', row = row_result, setlist = sl_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
@@ -285,12 +289,14 @@ def update_set_list(id):
 @app.route('/update_show/<int:id>', methods=['POST','GET'])
 def update_show(id):
     db_connection = connect_to_database()
+    display_row = 'SELECT * FROM `shows` WHERE `line up id` = %s' % (id)
+    row_result = execute_query(db_connection, display_row).fetchall()
    
     if request.method == 'GET':
         show_query = 'SELECT * FROM `shows` WHERE `line up id` = %s' % (id)
         shows_result = execute_query(db_connection, show_query).fetchone()
         
-        return render_template('shows_update.html', shows = shows_result)
+        return render_template('shows_update.html', row = row_result, shows = shows_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
@@ -307,13 +313,14 @@ def update_show(id):
 @app.route('/update_album/<int:id>', methods=['POST','GET'])
 def update_album(id):
     db_connection = connect_to_database()
+    display_row = 'SELECT * FROM `album` WHERE `album id` = %s' % (id)
+    row_result = execute_query(db_connection, display_row).fetchall()
     
     if request.method == 'GET':
         album_query = 'SELECT * FROM `album` WHERE `album id` = %s' % (id)
         album_result = execute_query(db_connection, album_query).fetchone()
 
-     
-        return render_template('album_update.html', album = album_result)
+        return render_template('album_update.html', row = row_result, album = album_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
@@ -330,12 +337,14 @@ def update_album(id):
 @app.route('/update_member/<int:id>', methods=['POST','GET'])
 def update_member(id):
     db_connection = connect_to_database()
+    display_row = 'SELECT * FROM `band members` WHERE `band member id` = %s' % (id)
+    row_result = execute_query(db_connection, display_row).fetchall()
     
     if request.method == 'GET':
         member_query = 'SELECT * FROM `band members` WHERE `band member id` = %s' % (id)
         member_result = execute_query(db_connection, member_query).fetchone()
 
-        return render_template('members_update.html', member = member_result)
+        return render_template('members_update.html', row = row_result, member = member_result)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()

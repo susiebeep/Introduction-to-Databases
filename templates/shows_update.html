@@ -17,10 +17,25 @@
 			<li><a href="http://flip3.engr.oregonstate.edu:3975/track_contributors">Track Contributors</a></li>
 		</ul>
 	</nav>
+<br>
+<table style="width:75%" table border="1" table align = "center">
+  <thead>
+    <th>Line Up ID</th>
+    <th>City</th>
+  </thead>
+    <tbody>
+	{% for r in row %}
+  <tr>
+		<td>{{r.0}}</td>
+		<td>{{r[1]}}</td>
+  </tr>
+	{% endfor %}
+</tbody>
+</table>
 <br>	
 <form method="POST" action="/update_show/{{shows.0}}">
 	<input type="hidden" name="lineup_id" value = "{{shows.0}}">
-    Show City <input type="text" name="city_name" value = "{{shows[1]}}" required />
+    City <input type="text" name="city_name" value = "{{shows[1]}}" required />
 	<br>
 	<input type="submit">
   </form>

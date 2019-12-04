@@ -18,6 +18,25 @@
 		</ul>
 	</nav>
 <br>
+<table style="width:75%" table border="1" table align = "center">
+  <thead>
+	<th>Band Member ID</th>
+    <th>Name</th>
+    <th>Instrument</th>
+    <th>Birthdate</th>
+  </thead>
+  <tbody>
+	{% for r in row %}
+	<tr>
+		<td>{{r.0}}</td>
+		<td>{{r[1]}}</td>
+		<td>{{r[2]}}</td>
+		<td>{{r[3]}}</td>
+	</tr>
+		{% endfor %}
+	</tbody>
+</table>	
+<br>
 <form method="POST" action="/update_member/{{member.0}}">
     <input type="hidden" name="member_id" value = "{{member.0}}">
 	Band Member Name <input type="text" name="member_name" value = "{{member[1]}}" required />
