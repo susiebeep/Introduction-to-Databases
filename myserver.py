@@ -272,16 +272,18 @@ def update_set_list(id):
         sl_query = 'SELECT * FROM `set list` WHERE `set list id` = %s' % (id)
         sl_result = execute_query(db_connection, sl_query).fetchone()
         
-        return render_template('set_list_update.html', row = row_result, setlist = sl_result)
+        query1 = 'SELECT `track id`, `track name` FROM `tracks`';
+        result_track = execute_query(db_connection, query1).fetchall();
+        
+        return render_template('set_list_update.html', row = row_result, setlist = sl_result, track_id = result_track)
 
     elif request.method == 'POST':
         db_connection = connect_to_database()
         setlist_id = request.form['setlist_id']
-        lineup_id = request.form['lineup_id']
         track_id = request.form['track_id']
-        data = (lineup_id, track_id, setlist_id)
+        data = (track_id, setlist_id)
 
-        query = query = "UPDATE `set list` SET `line up id` = %s, `track id` = %s WHERE `set list id` = %s;"
+        query = query = "UPDATE `set list` SET `track id` = %s WHERE `set list id` = %s;"
         result = execute_query(db_connection, query, data)
 
         return redirect('/set_list')
